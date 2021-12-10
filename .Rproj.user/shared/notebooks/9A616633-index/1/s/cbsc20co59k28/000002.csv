@@ -1,0 +1,18 @@
+"0","library(tidyverse)"
+"0","library(maps)"
+"0","library(geoR)"
+"1","'RandomFieldsUtils' will use OMP
+"
+"1","'RandomFields' will use OMP
+"
+"0","library(mgcv)"
+"0","library(kableExtra)"
+"0","library(cowplot)"
+"0","library(broom)"
+"0","library(sf)"
+"0","library(rnaturalearth)"
+"0","library(rnaturalearthdata)"
+"0","library(ggspatial)"
+"0","library(skimr)"
+"0","library(latex2exp)"
+"0","library(mgcViz)"

@@ -1,0 +1,121 @@
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'` 
+
+
+<!--
+If you feel it necessary to include an appendix, it goes here.
+-->
+
+# Information of 13 selected gauging stations {#infor}
+
+Table \ref{tab:information} is a summary of selected gauging stations. The distributions of sample data are similar to the complete data.
+
+```{r, echo = FALSE}
+rm(p1, p2, p3)
+load("files/data.Rdata")
+data %>% 
+  select(ID, Station, Flow, Longitude, Latitude, Catchment.Area, Max.Altitude,River)%>%
+  filter(ID %in% c(9005, 21009, 79004, 10002, 96003, 83013,  4001, 12006, 15012, 15013, 82003, 84003,  8009)) %>% 
+  group_by(Station, Longitude, Latitude, Catchment.Area, Max.Altitude) %>%
+  summarise(Qmean = mean(Flow)) %>%
+    kable(col.names = linebreak(c("Station", "Longitude","Latitude","Catchment\narea", "Max\naltitude", "Mean\nflow"), align = "c"),
+      caption = '\\label{tab:information} Information for 13 gauging stations for model selection .',escape = F, 
+        booktabs = TRUE, format = "latex", digits = 2) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position",position = "center")
+```
+
+
+# Code for cross validates method {#code}
+
+The cross validates method was carried out by the following code with three functions, LOOCV1, LOOCV2, and ACC.
+
+```{r, eval = FALSE}
+# We first split the complete data set randomly.
+# The objective data is the full dataset.
+# There are 65 gauging stations.
+ x <- unique(data$ID)
+ y <- as.data.frame(matrix(NA, ncol = 2, nrow = 65))
+ names(y) <- c("ID","index")
+# We create five indexes for the five subset
+ for (i in 1:5){
+   x1 <- sample(x, 13)
+   x <- x[-which(x %in% x1)]
+   x1 <- data.frame(ID = x1, index = i)
+   y[(13*(i-1)+1):(13*i),] <- x1
+ }
+ 
+# RMSPE, MAPE and MdAPE values for model without covariates
+LOOCV1 <- function(x){
+  subdata <- data %>% filter(index != x)
+  subdata2 <- data %>% filter(index == x)
+  fit <- bam(log(Flow) ~ 
+               s(doy, bs = "bs", m = c(3,2), k = 6) + 
+               s(Year, bs = "bs", m = c(3,2), k = 6) +     
+               te(Longitude, Latitude, 
+                  bs = "cr", k = 13) +
+               ti(doy, Year, 
+                  bs = "cr", k = 6)+
+               ti(Longitude, Latitude, doy, d=c(2,1), 
+                  bs = "cr", k = 6) +
+               ti(Longitude, Latitude, Year, d=c(2,1), 
+                  bs = "cr", k = 6), 
+             method = "fREML",
+             data = subdata)
+  pred <- predict(fit, subdata2)
+  res <- log(subdata2$Flow) - pred
+  RMSPE <- sqrt(mean(res^2))
+  MAPE <- mean(abs(res))
+  MdAPE <- median(abs(res))
+  ACC <- c(RMSPE, MAPE,MdAPE)
+  return(ACC)
+}
+
+# RMSPE, MAPE and MdAPE values for model without covariates
+LOOCV2 <- function(x){
+  subdata <- data %>% filter(index != x)
+  subdata2 <- data %>% filter(index == x)
+  fit <- bam(log(Flow) ~ Catchment.Area + Max.Altitude +
+                 s(doy, bs = "bs", m = c(3,2), k = 6) + 
+                 s(Year, bs = "bs", m = c(3,2), k = 6) + 
+                 te(Longitude, Latitude, 
+                    bs = "cr", k = 13) +
+                 ti(doy, Year, 
+                    bs = "cr", k = 6)+
+                 ti(Longitude, Latitude, doy, d=c(2,1), 
+                    bs = "cr", k = 6) +
+                 ti(Longitude, Latitude, Year, d=c(2,1), 
+                    bs = "cr", k = 6), 
+               method = "fREML",
+               data = subdata)
+  pred <- predict(fit, subdata2)
+  res <- log(subdata2$Flow) - pred
+  RMSPE <- sqrt(mean(res^2))
+  MAPE <- mean(abs(res))
+  MdAPE <- median(abs(res))
+  ACC <- c(RMSPE, MAPE,MdAPE)
+  return(ACC)
+}
+
+# Let each of the five subsets be a test set
+ACC1 <- list(LOOCV1(1), LOOCV1(2), LOOCV1(3), LOOCV1(4), LOOCV1(5))
+ACC2 <- list(LOOCV2(1), LOOCV2(2), LOOCV2(3), LOOCV2(4), LOOCV2(5))
+
+# Calculate the mean values of five test set
+acc <- function(x){
+  RMSPE <- numeric()
+  MAPE <- numeric()
+  MdAPE <- numeric()
+  for (i in 1:5){
+    RMSPE[i] <-  x[[i]][1]
+    MAPE[i] <- x[[i]][2]
+    MdAPE[i] <- x[[i]][3]
+  }
+  acc <- c(mean(RMSPE), mean(MAPE),mean(MdAPE))
+  return(acc)
+}
+
+acc(ACC1)
+acc(ACC2)
+```
+

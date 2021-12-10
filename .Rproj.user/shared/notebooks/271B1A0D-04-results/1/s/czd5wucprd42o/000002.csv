@@ -1,0 +1,27 @@
+"0","vari <- variog(residUK)"
+"1","variog: computing omnidirectional variogram
+"
+"0","vari.mc <- variog.mc.env(residUK, obj.variog=vari)"
+"1","variog.env: generating 99 simulations by permutating data values
+"
+"1","variog.env: computing the empirical variogram for the 99 simulations
+"
+"1","variog.env: computing the envelops
+"
+"0","q <- function() {"
+"0","  par("
+"0","    mar = c(3, 3, 3, 3),"
+"0","    mgp = c(2, 1, 0)"
+"0","  )"
+"0","  qq.gam(fit)"
+"0","}"
+"0","p1 <- ggdraw(q)"
+"0","p <- function() {"
+"0","  par("
+"0","    mar = c(3, 3, 3, 3),"
+"0","    mgp = c(2, 1, 0)"
+"0","  )"
+"0","  plot(vari, envelope.obj=vari.mc)"
+"0","}"
+"0","p2 <- ggdraw(p) "
+"0",""

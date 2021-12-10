@@ -1,0 +1,31 @@
+{
+    "id": "D62AFF23",
+    "path": "F:/thesis_uofg/04-results.Rmd",
+    "project_path": "04-results.Rmd",
+    "type": "r_markdown",
+    "hash": "3058893473",
+    "contents": "",
+    "dirty": false,
+    "created": 1636922149779.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "80,0",
+        "scrollLine": "80",
+        "docOutlineVisible": "1",
+        "docOutlineSize": "212",
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "rmdVisualModeLocation": "8629:5234.54541015625"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1638531972,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1638531972582,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,15 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Summary statistics on daily flow, catchment area and maximum altitude in the catchment.\relax }}{6}{table.caption.8}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Distribution family and link function of candidate models\relax }}{9}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Freedom degree, AIC and BIC of each fitted model, and statistics of F test and GLRT of $model_{i4}$ with $model_{i1}$, $model_{i2}$, and $model_{i3}$ respectively.\relax }}{13}{table.caption.11}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Estimated coefficients of covariates in $Model_{44}$.\relax }}{13}{table.caption.12}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Analysis of variance for smooth terms in $Model_{44}$\relax }}{13}{table.caption.13}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces RMSPE, MAPE and MdAPE scores when the model excludes covariates and contains covariates\relax }}{14}{table.caption.15}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Preditions of average flow in Scotand from 2021 to 2030 by 3 years over the four seasons\relax }}{18}{table.caption.18}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Information for 13 gauging stations for model selection .\relax }}{21}{table.caption.19}%
+\addvspace {10\p@ }

@@ -1,0 +1,19 @@
+# Conclusions and discussions {#conclusion}
+
+## Summary of conclusions
+
+We assembles 640,575 flow observations from 65 gauging stations in Scotland over 27 years from 1989 to 2015, and the dependent variables of Gaussian distribution, Gaussian distribution log link function, Gamma distribution log link function, and log-transformed Gaussian distribution with catchment area and maximum latitude as covariates are modelled respectively, for time effect, seasonal effect, spatial effect, and interactions via GAMs. We select and check the candidate models to analyse the hydrological characteristics of Scotland. There is an upward trend in Scottish flows over time, with a seasonal feature of small summer flows and large winter flows, and the disparity is narrowing. Spatially, it adheres to two patterns, the higher the latitude the lower the flow and the greater the flow on the west coast than on the east coast, the latter of which is strengthened in recent years. The area and the maximum latitude of the catchment enable distinctly more accurate predictions. The study concludes by forecasting an upward trend in average flows in Scotland from 2021 to 2030.
+
+The approach in this paper is computationally fast and substantially reduces the time required to fit the model by choosing appropriate algorithms and parameters. The results are robust by selecting models and testing their effectiveness through a variety of criteria. Compared to machine learning methods which are regarded as black-box, the interpretation and visualization are stronger. The issue of over-fitting is partly reduced by penalty terms and cross-validation. This paper fills a gap in Scottish flow studies by analysing the hydrological characteristics of entire Scotland. 
+
+## Discussion of limitations
+
+A number of limitations need to be noted regarding the present study. First, uncertainty, essential in hydrological forecasting, is not adequately estimated, which may lead to inaccurate outcomes. Second, not all possible covariates are considered in the GAM, for example, precipitation is a potential predictor variable and this variable is not included in this study due to the limitations of data availability. Third, We do not compare the properties of GAMs with other popular methods due to computational speed constraints.
+
+## Further analysis
+
+Given the limitations of the methodology in this paper, future work may include the following. First, another possible area of future research would be to investigate the uncertainty of streamflow trends.
+Bootstrap is suggested to evaluate the uncertainty. Secondly, the performance of the model could potentially be boosted by trying out more covariates and various models, for example, spatio-temporal models with the integrated nested Laplace approximation approach.
+
+
+

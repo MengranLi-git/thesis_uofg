@@ -1,0 +1,859 @@
+{
+    "sources": [
+        {
+            "DOI": "10.1002/env.2522",
+            "URL": "http://dx.doi.org/10.1002/env.2522",
+            "author": [
+                {
+                    "family": "Franco-Villoria",
+                    "given": "Maria"
+                },
+                {
+                    "family": "Scott",
+                    "given": "Marian"
+                },
+                {
+                    "family": "Hoey",
+                    "given": "Trevor"
+                }
+            ],
+            "container-title": "Environmetrics",
+            "id": "franco-villoria2018",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        8,
+                        21
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "e2522",
+            "title": "Spatiotemporal modeling of hydrological return levels: A quantile regression approach",
+            "title-short": "Spatiotemporal modeling of hydrological return levels",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1111/rssc.12068",
+            "URL": "http://dx.doi.org/10.1111/rssc.12068",
+            "author": [
+                {
+                    "family": "Wood",
+                    "given": "Simon N."
+                },
+                {
+                    "family": "Goude",
+                    "given": "Yannig"
+                },
+                {
+                    "family": "Shaw",
+                    "given": "Simon"
+                }
+            ],
+            "container-title": "Journal of the Royal Statistical Society: Series C (Applied Statistics)",
+            "id": "wood2014",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        5,
+                        27
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "139-155",
+            "title": "Generalized additive models for large data sets",
+            "type": "article-journal",
+            "volume": "64"
+        },
+        {
+            "DOI": "10.1007/978-1-4614-6849-3",
+            "URL": "http://dx.doi.org/10.1007/978-1-4614-6849-3",
+            "author": [
+                {
+                    "family": "Kuhn",
+                    "given": "Max"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Kjell"
+                }
+            ],
+            "id": "kuhn2013a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "Springer New York",
+            "title": "Applied predictive modeling",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1109/iacc.2016.25",
+            "URL": "http://dx.doi.org/10.1109/IACC.2016.25",
+            "author": [
+                {
+                    "family": "Yadav",
+                    "given": "Sanjay"
+                },
+                {
+                    "family": "Shukla",
+                    "given": "Sanyam"
+                }
+            ],
+            "container-title": "2016 IEEE 6th International Conference on Advanced Computing (IACC)",
+            "id": "yadav2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016,
+                        2
+                    ]
+                ]
+            },
+            "title": "Analysis of k-fold cross-validation over hold-out validation on colossal datasets for quality classification",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.1016/j.jhydrol.2010.12.041",
+            "URL": "http://dx.doi.org/10.1016/j.jhydrol.2010.12.041",
+            "author": [
+                {
+                    "family": "Kisi",
+                    "given": "Ozgur"
+                },
+                {
+                    "family": "Cimen",
+                    "given": "Mesut"
+                }
+            ],
+            "container-title": "Journal of Hydrology",
+            "id": "kisi2011",
+            "issue": "1-2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011,
+                        3
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "132-140",
+            "title": "A wavelet-support vector machine conjunction model for monthly streamflow forecasting",
+            "type": "article-journal",
+            "volume": "399"
+        },
+        {
+            "DOI": "10.1007/978-1-4612-1694-0_15",
+            "URL": "http://dx.doi.org/10.1007/978-1-4612-1694-0_15",
+            "author": [
+                {
+                    "family": "Akaike",
+                    "given": "Hirotogu"
+                }
+            ],
+            "id": "akaike1998",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "page": "199-213",
+            "publisher": "Springer New York",
+            "title": "Information theory and an extension of the maximum likelihood principle",
+            "type": "chapter"
+        },
+        {
+            "DOI": "10.2307/2533961",
+            "URL": "http://dx.doi.org/10.2307/2533961",
+            "author": [
+                {
+                    "family": "Buckland",
+                    "given": "S. T."
+                },
+                {
+                    "family": "Burnham",
+                    "given": "K. P."
+                },
+                {
+                    "family": "Augustin",
+                    "given": "N. H."
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "buckland1997",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1997,
+                        6
+                    ]
+                ]
+            },
+            "page": "603",
+            "title": "Model selection: An integral part of inference",
+            "title-short": "Model selection",
+            "type": "article-journal",
+            "volume": "53"
+        },
+        {
+            "DOI": "10.1016/j.csda.2007.10.022",
+            "URL": "http://dx.doi.org/10.1016/j.csda.2007.10.022",
+            "author": [
+                {
+                    "family": "Scheipl",
+                    "given": "Fabian"
+                },
+                {
+                    "family": "Greven",
+                    "given": "Sonja"
+                },
+                {
+                    "family": "Küchenhoff",
+                    "given": "Helmut"
+                }
+            ],
+            "container-title": "Computational Statistics & Data Analysis",
+            "id": "scheipl2008",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        3
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "3283-3299",
+            "title": "Size and power of tests for a zero random effect variance or polynomial regression in additive and linear mixed models",
+            "type": "article-journal",
+            "volume": "52"
+        },
+        {
+            "DOI": "10.1016/j.jhydrol.2010.12.041",
+            "URL": "http://dx.doi.org/10.1016/j.jhydrol.2010.12.041",
+            "author": [
+                {
+                    "family": "Kisi",
+                    "given": "Ozgur"
+                },
+                {
+                    "family": "Cimen",
+                    "given": "Mesut"
+                }
+            ],
+            "container-title": "Journal of Hydrology",
+            "id": "kisi2011",
+            "issue": "1-2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011,
+                        3
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "132-140",
+            "title": "A wavelet-support vector machine conjunction model for monthly streamflow forecasting",
+            "type": "article-journal",
+            "volume": "399"
+        },
+        {
+            "DOI": "10.5829/idosi.wasj.2013.24.itmies.80032",
+            "author": [
+                {
+                    "family": "Shcherbakov",
+                    "given": "Maxim"
+                },
+                {
+                    "family": "Brebels",
+                    "given": "Adriaan"
+                },
+                {
+                    "family": "Shcherbakova",
+                    "given": "N. L."
+                },
+                {
+                    "family": "Tyukov",
+                    "given": "Anton"
+                },
+                {
+                    "family": "Janovsky",
+                    "given": "T. A."
+                },
+                {
+                    "family": "Kamaev",
+                    "given": "V. A."
+                }
+            ],
+            "container-title": "World Applied Sciences Journal",
+            "id": "Maxim2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        1
+                    ]
+                ]
+            },
+            "page": "171-176",
+            "title": "A survey of forecast error measures",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "DOI": "10.5285/10d419c8-8f65-4b85-a78a-3d6e0485fa1f",
+            "URL": "https://doi.org/10.5285/10d419c8-8f65-4b85-a78a-3d6e0485fa1f",
+            "author": [
+                {
+                    "family": "Kral",
+                    "given": "M.;Dixon",
+                    "suffix": "F.;Fry"
+                }
+            ],
+            "id": "10.5285/10d419c8-8f65-4b85-a78a-3d6e0485fa1f",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "NERC Environmental Information Data Centre",
+            "title": "Integrated hydrological units of the united kingdom: catchments",
+            "title-short": "Integrated hydrological units of the united kingdom",
+            "type": ""
+        },
+        {
+            "DOI": "10.1002/env.2522",
+            "URL": "http://dx.doi.org/10.1002/env.2522",
+            "author": [
+                {
+                    "family": "Franco-Villoria",
+                    "given": "Maria"
+                },
+                {
+                    "family": "Scott",
+                    "given": "Marian"
+                },
+                {
+                    "family": "Hoey",
+                    "given": "Trevor"
+                }
+            ],
+            "container-title": "Environmetrics",
+            "id": "franco-villoria2018",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        8,
+                        21
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "e2522",
+            "title": "Spatiotemporal modeling of hydrological return levels: A quantile regression approach",
+            "title-short": "Spatiotemporal modeling of hydrological return levels",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1007/bf01581566",
+            "URL": "http://dx.doi.org/10.1007/BF01581566",
+            "author": [
+                {
+                    "family": "Bobee",
+                    "given": "B."
+                },
+                {
+                    "family": "Perreault",
+                    "given": "L."
+                },
+                {
+                    "family": "Ashkar",
+                    "given": "F."
+                }
+            ],
+            "container-title": "Stochastic Hydrology and Hydraulics",
+            "id": "bobee1993",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1993,
+                        3
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "41-65",
+            "title": "Two kinds of moment ratio diagrams and their applications in hydrology",
+            "type": "article-journal",
+            "volume": "7"
+        },
+        {
+            "DOI": "10.1080/01621459.2016.1195744",
+            "URL": "http://dx.doi.org/10.1080/01621459.2016.1195744",
+            "author": [
+                {
+                    "family": "Wood",
+                    "given": "Simon N."
+                },
+                {
+                    "family": "Li",
+                    "given": "Zheyuan"
+                },
+                {
+                    "family": "Shaddick",
+                    "given": "Gavin"
+                },
+                {
+                    "family": "Augustin",
+                    "given": "Nicole H."
+                }
+            ],
+            "container-title": "Journal of the American Statistical Association",
+            "id": "wood2017",
+            "issue": "519",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        4,
+                        25
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "1199-1210",
+            "title": "Generalized Additive Models for Gigadata: Modeling the U.K. Black Smoke Network Daily Data",
+            "title-short": "Generalized Additive Models for Gigadata",
+            "type": "article-journal",
+            "volume": "112"
+        },
+        {
+            "DOI": "10.1007/s11222-019-09864-2",
+            "URL": "http://dx.doi.org/10.1007/s11222-019-09864-2",
+            "author": [
+                {
+                    "family": "Li",
+                    "given": "Zheyuan"
+                },
+                {
+                    "family": "Wood",
+                    "given": "Simon N."
+                }
+            ],
+            "container-title": "Statistics and Computing",
+            "id": "li2019",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        3,
+                        1
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "19-25",
+            "title": "Faster model matrix crossproducts for large generalized linear models with discretized covariates",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1016/s0048-9697(02)00048-7",
+            "URL": "http://dx.doi.org/10.1016/s0048-9697(02)00048-7",
+            "author": [
+                {
+                    "family": "Soulsby",
+                    "given": "C"
+                },
+                {
+                    "family": "Black",
+                    "given": "A.R"
+                },
+                {
+                    "family": "Werritty",
+                    "given": "A"
+                }
+            ],
+            "container-title": "Science of The Total Environment",
+            "id": "soulsby2002",
+            "issue": "1-3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002,
+                        7
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "3-11",
+            "title": "Hydrology in Scotland: towards a scientific basis for the sustainable management of freshwater resourcesforeword to thematic issue",
+            "title-short": "Hydrology in Scotland",
+            "type": "article-journal",
+            "volume": "294"
+        },
+        {
+            "DOI": "10.1016/s0079-1946(96)00007-9",
+            "URL": "http://dx.doi.org/10.1016/s0079-1946(96)00007-9",
+            "author": [
+                {
+                    "family": "Black",
+                    "given": "A.R."
+                }
+            ],
+            "container-title": "Physics and Chemistry of the Earth",
+            "id": "black1995",
+            "issue": "5-6",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995,
+                        10
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "463-468",
+            "title": "Major flooding and increased flood frequency in Scotland since 1988",
+            "type": "article-journal",
+            "volume": "20"
+        },
+        {
+            "DOI": "10.1016/0143-6228(94)90056-6",
+            "URL": "http://dx.doi.org/10.1016/0143-6228(94)90056-6",
+            "author": [
+                {
+                    "family": "Smith",
+                    "given": "Keith"
+                },
+                {
+                    "family": "Bennett",
+                    "given": "Anthony M."
+                }
+            ],
+            "container-title": "Applied Geography",
+            "id": "smith1994",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994,
+                        4
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "123-133",
+            "title": "Recently increased river discharge in Scotland: effects on flow hydrology and some implications for water management",
+            "title-short": "Recently increased river discharge in Scotland",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "DOI": "10.1017/s1755691013000030",
+            "URL": "http://dx.doi.org/10.1017/S1755691013000030",
+            "author": [
+                {
+                    "family": "Werritty",
+                    "given": "Alan"
+                },
+                {
+                    "family": "Sugden",
+                    "given": "David"
+                }
+            ],
+            "container-title": "Earth and Environmental Science Transactions of the Royal Society of Edinburgh",
+            "id": "werritty2012",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        7
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "133-147",
+            "title": "Climate change and Scotland: recent trends and impacts",
+            "title-short": "Climate change and Scotland",
+            "type": "article-journal",
+            "volume": "103"
+        },
+        {
+            "DOI": "10.1146/annurev-statistics-031219-041314",
+            "URL": "http://dx.doi.org/10.1146/annurev-statistics-031219-041314",
+            "author": [
+                {
+                    "family": "Naveau",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Hannart",
+                    "given": "Alexis"
+                },
+                {
+                    "family": "Ribes",
+                    "given": "Aurélien"
+                }
+            ],
+            "container-title": "Annual Review of Statistics and Its Application",
+            "id": "naveau2020",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        3,
+                        9
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "89-110",
+            "title": "Statistical Methods for Extreme Event Attribution in Climate Science",
+            "type": "article-journal",
+            "volume": "7"
+        },
+        {
+            "DOI": "10.1016/j.jhydrol.2006.04.044",
+            "URL": "http://dx.doi.org/10.1016/j.jhydrol.2006.04.044",
+            "author": [
+                {
+                    "family": "Griffiths",
+                    "given": "J."
+                },
+                {
+                    "family": "Binley",
+                    "given": "A."
+                },
+                {
+                    "family": "Crook",
+                    "given": "N."
+                },
+                {
+                    "family": "Nutter",
+                    "given": "J."
+                },
+                {
+                    "family": "Young",
+                    "given": "A."
+                },
+                {
+                    "family": "Fletcher",
+                    "given": "S."
+                }
+            ],
+            "container-title": "Journal of Hydrology",
+            "id": "griffiths2006",
+            "issue": "1-2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006,
+                        10
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "71-83",
+            "title": "Streamflow generation in the Pang and Lambourn catchments, Berkshire, UK",
+            "type": "article-journal",
+            "volume": "330"
+        },
+        {
+            "DOI": "10.5194/hess-22-2023-2018",
+            "URL": "http://dx.doi.org/10.5194/hess-22-2023-2018",
+            "author": [
+                {
+                    "family": "Harrigan",
+                    "given": "Shaun"
+                },
+                {
+                    "family": "Prudhomme",
+                    "given": "Christel"
+                },
+                {
+                    "family": "Parry",
+                    "given": "Simon"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Katie"
+                },
+                {
+                    "family": "Tanguy",
+                    "given": "Maliko"
+                }
+            ],
+            "container-title": "Hydrology and Earth System Sciences",
+            "id": "harrigan2018",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        3,
+                        29
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "2023-2039",
+            "title": "Benchmarking ensemble streamflow prediction skill in the UK",
+            "type": "article-journal",
+            "volume": "22"
+        },
+        {
+            "DOI": "10.1016/s0022-1694(96)03264-7",
+            "URL": "http://dx.doi.org/10.1016/s0022-1694(96)03264-7",
+            "author": [
+                {
+                    "family": "Black",
+                    "given": "Andrew R."
+                },
+                {
+                    "family": "Werritty",
+                    "given": "Alan"
+                }
+            ],
+            "container-title": "Journal of Hydrology",
+            "id": "black1997",
+            "issue": "1-4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1997,
+                        8
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "1-25",
+            "title": "Seasonality of flooding: a case study of North Britain",
+            "title-short": "Seasonality of flooding",
+            "type": "article-journal",
+            "volume": "195"
+        },
+        {
+            "DOI": "10.5194/nhess-14-1125-2014",
+            "URL": "http://dx.doi.org/10.5194/nhess-14-1125-2014",
+            "author": [
+                {
+                    "family": "Prosdocimi",
+                    "given": "I."
+                },
+                {
+                    "family": "Kjeldsen",
+                    "given": "T. R."
+                },
+                {
+                    "family": "Svensson",
+                    "given": "C."
+                }
+            ],
+            "container-title": "Natural Hazards and Earth System Sciences",
+            "id": "prosdocimi2014",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        5,
+                        16
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "1125-1144",
+            "title": "Non-stationarity in annual and seasonal series of peak flow and precipitation in the UK",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "DOI": "10.1029/2004wr003094",
+            "URL": "http://dx.doi.org/10.1029/2004wr003094",
+            "author": [
+                {
+                    "family": "Iorgulescu",
+                    "given": "I."
+                },
+                {
+                    "family": "Beven",
+                    "given": "K. J."
+                }
+            ],
+            "container-title": "Water Resources Research",
+            "id": "iorgulescu2004",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004,
+                        8
+                    ]
+                ]
+            },
+            "language": "en",
+            "title": "Nonparametric direct mapping of rainfall-runoff relationships: An alternative approach to data analysis and modeling?",
+            "title-short": "Nonparametric direct mapping of rainfall-runoff relationships",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "DOI": "10.2166/hydro.2008.015",
+            "URL": "http://dx.doi.org/10.2166/hydro.2008.015",
+            "author": [
+                {
+                    "family": "Solomatine",
+                    "given": "Dimitri P."
+                },
+                {
+                    "family": "Ostfeld",
+                    "given": "Avi"
+                }
+            ],
+            "container-title": "Journal of Hydroinformatics",
+            "id": "solomatine2008",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        1,
+                        1
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "3-22",
+            "title": "Data-driven modelling: some past experiences and new approaches",
+            "title-short": "Data-driven modelling",
+            "type": "article-journal",
+            "volume": "10"
+        }
+    ],
+    "project_biblios": []
+}

@@ -1,0 +1,126 @@
+---
+bibliography: references.bib
+---
+
+# Region of study and data {#math-sci}
+
+## Scottish climatic and geography features
+
+Scotland is located in Western Europe, the northern part of the British Isle and the Atlantic Ocean in the West. It has a temperate marine climate. The four seasons in Scotland are winter (December to February), spring (March to May), summer (June to August), and autumn (September to November).
+Overall Scotland is rainy all year round but varies vastly from region to region. Research evidence shows that the dry season is from the 1960s to the 1970s, and the rainy season is from the late 1980s to the early 1990s [@black1995; @smith1994].
+
+Fig. \ref{fig:geo} presents a geographical map of Scotland, drawn with the R package leaflet, modified from the world map provided by ESRI. There are three main geographical divisions in Scotland, the Highlands and Islands in the northwest, the Central Lowlands and Southern Uplands. The average altitude in the northwest exceeds 1300m, blocking the westerly flow from the Atlantic Ocean, where there is abundant precipitation. On the east coast, the terrain is relatively flat, suitable for animal husbandry and farming [@soulsby2002]. The Grampian Mountains in the south of the Highlands region are the highest on the British island, and the highest peak Ben Nevis reaches 1343m. The central lowland is a rift valley that spans the narrow waist of Scotland from the head of the Firth of Clyde in the west to the Firth of Forth in the east. These fjords provide a valuable way to the sea. The flat terrain here is the main agricultural area in Scotland. The influence of geology on hydrology lead to more subdued hydrological regimes here [@soulsby2002]. The southern highlands are usually no more than 600 meters above sea level. The southern highlands usually have an altitude of no more than 600, and snow accounts for 30% of the average annual precipitation. The complex topography and diverse climate pose considerable challenges to the modelling and prediction of Scottish flows.
+
+```{r, echo=FALSE, fig.cap="\\label{fig:geo} Geographical map of Scotland, modified from the world map provided by ESRI.", out.width="70%", fig.align='center'}
+knitr::include_graphics("files/map.png")
+```
+
+## Study catchments and datasets
+
+Our analysis of stream flows is based on data recorded in Scotland, made available by the Scottish Environment Protection Agency (SEPA) and the National River Flow Archive(NRFA). The data set contains observations from 65 gauging stations along different rivers. The streamflow over a region, which is called as catchment, is drained to the gauging station. The catchment boundary in UK is divided within 50$m$ grid by the Centre for Ecology & Hydrology's Integrated Hydrological Digital Terrain Model [IHDTM, @10.5285/10d419c8-8f65-4b85-a78a-3d6e0485fa1f]. Fig. \ref{fig:map} displays the locations of gauging stations on a map. The observation period spans 27 years for all stations from January 1, 1989, to December 31, 2015. This dataset has no missing values.
+
+```{r, echo = FALSE, fig.cap="\\label{fig:map} Locations of 65 gauging stations. Red dots are the locations of selected gauging stations for initial exploration."}
+load("files/data.Rdata")
+position <- data %>% select(ID, Longitude, Latitude,River)
+position <- unique(position)
+world <- ne_countries(scale = "medium", returnclass = "sf")
+UK <- world %>% filter(sov_a3 == "GB1")
+ggplot(data = UK) +
+  geom_sf(fill = NA) + 
+  coord_sf(xlim = c(-7, -0.5), ylim = c(54.5, 59)) +  
+  geom_point(data = position, aes(x = Longitude, y = Latitude, group = ID),color = "blue") +
+  geom_point(data = position %>% filter(ID %in% c(9005, 21009, 79004, 10002, 96003, 83013,  4001, 12006, 15012, 15013, 82003, 84003,  8009)), 
+             aes(x = Longitude, y = Latitude, group = ID), color = "red") +
+  geom_text(data = position %>% filter(ID %in% c(9005, 21009, 79004, 10002, 96003, 83013,  4001, 12006, 15012, 15013, 82003, 84003,  8009)), 
+            aes(x = Longitude, y = Latitude, 
+                label = River, group = ID, 
+                vjust = -0.5, hjust = 0.7),size=3) +
+  annotation_scale(location = "tr",style = "ticks", pad_y = unit(2, "cm")) +
+  annotation_north_arrow(location = "tr", pad_x = unit(0.5, "cm"), style = north_arrow_fancy_orienteering())+
+  theme_bw()
+```
+
+Due to the computational cost of large datasets, we chose a subset of 10% of the observations for the initial analysis and eventually applied the final model to the full data. The method is introduced in detail in Chapter 3. The red dots are the selected gauging stations in Fig. \ref{fig:map} and we can note that they are distributed throughout the Scottish region.
+
+## Variables of interest
+
+Inside the dataset, we exact six variables, Flow, Catchment Area, Max Altitude, Year, doy, and bivariate variable coordinates (Longitude, Altitude) to analyse the flow change.
+
+Flow ($m^3/s$) is the daily average flow in each gauge station. It is regarded as the response variable in the research of Scottish average flow. The range of flow in Scotland is from `r round(min(data$Flow),4)` $m^3/s$ to `r round(max(data$Flow),4)` $m^3/s$ with the mean `r round(mean(data$Flow),4)`$\pm$ `r round(sd(data$Flow),4)` $m^3/s$. 
+
+```{r, echo=FALSE}
+my_skim <- skim_with(numeric = sfl(hist = NULL))
+data %>% select(Flow, Catchment.Area, Max.Altitude) %>%
+my_skim()  %>%
+  dplyr::select(-skim_type) %>% select(-n_missing,-complete_rate) %>%
+  kable(col.names = c("Variable", "Mean", "SD", "Min.", "1st Q.", "Median","3rd Q.", "Max."),
+        caption = '\\label{tab:summary} Summary statistics on daily flow, catchment area and maximum altitude in the catchment.',
+        booktabs = TRUE, format = "latex", digits = 4) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+Flow shows an obvious positive skew distribution. 
+
+Table \ref{tab:summary} are summary statistics of flow data, catchment area, and maximum altitude in the catchment. Fig. \ref{fig:relation} shows the relationship between river flow and other variables of interest.
+
+The surface area of the region projected onto a horizontal plane is defined as Catchment Area ($km^2$). In our dataset, the largest catchment has an area of 4390 $km^2$ and the smallest one is only 60 $km^2$. The mean area of all catchments is 556.64 $\pm$ 767.17 $km^2$. The distribution of the catchment area is positively skewed. Fig. \ref{fig:relation}(a) displays the potential positive relationship between Catchment Area and average flow. The y-axis is the mean flow at a gauging station for the entire observing period and the x-axis is the responding catchment area. The blue line is the coefficient fitted by simple linear regression. The Max Altitude ($m$) is the maximum altitude inside a catchment. It ranges from 233.7 $m$ to 1308.9 $m$ with mean 784.57 $\pm$ 282.59 $m$. Fig. \ref{fig:relation}(b) shows that the catchments with the larger area have higher average flow.
+
+The temporal effect is represented by the Year (1989-2015). Fig. \ref{fig:relation}(c) indicates that the annual mean flow fluctuates stationary. The variable doy is the day of the year, for example, 1st January is the first day of a year, thus the doy is 1 and 31st December is the last day of a year, therefore the doy is 365. We remove the data on 29th Feb to ensure that the doy is the same every year. The deleted observations are close to the values nearly so that the treatment does not influence our results. Thus N = 65 × 27 × 365 = 640575, that is, 27 years of 365 daily observations in each station. Because the flow trend of the month is similar to the doy (1-365), we choose the doy to detect the seasonal pattern. Fig \ref{fig:relation}(d) reveals a trend that the average flow decreases to the middle of the year and then increases, say, the flow goes up in winter and falls down in summer.
+
+```{r, echo=FALSE, results = 'hide', fig.keep='all', fig.cap="\\label{fig:relation} Relationships of corvarites and flow.", fig.height=6,fig.width=5.5}
+p1 <- data %>% select(Catchment.Area, Flow) %>%
+  group_by(Catchment.Area) %>%
+  summarise(Mean = mean(Flow)) %>%
+  ggplot(aes(x = Catchment.Area, y = Mean)) +
+  geom_point() +
+  geom_smooth(method='lm', se = F,size = 0.5) +
+  xlab(TeX("$Catchment\\;Area\\;(km^2)$")) +
+  ylab("Mean flow") + 
+  theme_bw()
+p2 <- data %>% select(Max.Altitude, Flow) %>%
+  group_by(Max.Altitude) %>%
+  summarise(Mean = mean(Flow)) %>%
+  ggplot(aes(x = Max.Altitude, y = Mean)) +
+  geom_point() +
+  geom_smooth(method='lm', se = F,size = 0.5) +
+  xlab(TeX("$Max\\;Altitude\\;(m)$")) +
+  ylab("Mean flow") + 
+  theme_bw()
+p3 <- data %>% 
+  select("ID", "Flow", "Year") %>%
+  group_by(Year) %>%
+  summarise(MeanFlow = mean(Flow)) %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(x=Year,y=MeanFlow))+
+  geom_line(size = 0.5)+
+  ylab("Mean flow") + 
+  theme_bw()
+p4 <- data %>% 
+  select("ID", "Flow", "doy") %>%
+  group_by(doy) %>%
+  summarise(MeanFlow = mean(Flow)) %>%
+  mutate(Year = as.numeric(doy)) %>%
+  ggplot(aes(x=doy,y=MeanFlow))+
+  geom_line()+
+  ylab("Mean flow") + 
+  theme_bw()
+p5 <- data %>% select(Longitude, Flow) %>%
+  group_by(Longitude) %>%
+  summarise(Mean = mean(Flow)) %>%
+  ggplot(aes(x = Longitude, y = Mean)) +
+  geom_point() +
+  xlab("Longitude") +
+  ylab("Mean flow") + 
+  theme_bw()
+p6 <- data %>% select(Latitude, Flow) %>%
+  group_by(Latitude) %>%
+  summarise(Mean = mean(Flow)) %>%
+  ggplot(aes(x = Latitude, y = Mean)) +
+  geom_point() +
+  xlab(TeX("Latitude")) +
+  ylab("Mean flow") + 
+  theme_bw()
+
+plot_grid(p1,p2,p3,p4,p5, p6, ncol=2, labels=paste0("(",letters[1:6],")"), hjust = 0)
+```
+
+We use coordinate to evaluate the spatial effect, which includes longitude and latitude, whose units are a degree. The distribution of gauging stations are from -5.60$^\circ$E to -1.83$^\circ$E and from 54.90$^\circ$N to 58.56$^\circ$N. The Fig \ref{fig:relation}(e) and Fig \ref{fig:relation}(f) are scatter plots of gauging station longitude and latitude vs average flow respectively. In longitude, the flow at the middle region is more likely to be large, and the same pattern is identified in latitude. 

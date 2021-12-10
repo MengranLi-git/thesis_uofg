@@ -1,0 +1,90 @@
+---
+bibliography: references.bib
+---
+
+# Description of the methods {#ref-labels}
+
+## Formulation of statistical models
+
+One of the most well-known tools for assessing the pattern of flow data is the linear models, which are expressed as Eq. \ref{eq:lm}.
+
+```{=tex}
+\begin{equation}
+g(E(y_i))=\beta_0+\beta_1 x_{1i}+\beta_2 x_{2i} + \beta_3 t_i + \beta_4 d_i + \beta_5z_{1i}+\beta_6z_{2i}+\varepsilon_i,\;i=1,\dots,n, \label{eq:lm}
+\end{equation}
+```
+where $g(\cdot)$ is a known link function. We assume the flow data $y_{i}$ follows the exponential family of distributions $f(y_{i})=\exp\{\frac{y_{i}a_{i}-b(a_{i})}{\phi}+c(y_{i},\phi)\}$, $\varepsilon_i\sim N(0,\sigma^2)$, where $a_{i}$ is canonical parameter, $b(\cdot)$ and $c(\cdot)$ are known functions and $\phi$ is the dispersion parameter. The variables $x_1$ and $x_2$ are catchment area and max altitude respectively, $t_i$ and $d_i$ denote time (year) and doy (day of the year), which represent time effect and seasonal effect respectively, and $z_1$ and $z_2$ represent spatial effect, say, longitude and latitude in coordinates.
+
+Given the temporal and spatial complexity of river data, linear regression may not be appropriate in this research, so a flexible approach is employed. A spatiotemporal additive model (main effects model) of river flows can be expressed as Eq. \ref{eq:gammain}.
+
+```{=tex}
+\begin{equation}
+g(E(y_i)) =\beta_0+\beta_1 x_{1i}+\beta_2 x_{2i}+s_1(t_i) + s_2(d_i) + s_3(z_i)+\varepsilon_i,\;i=1,\dots,n, \label{eq:gammain}
+\end{equation}
+```
+where $s_1(t)$ and $s_2(d)$ denote smooth functions for time (year) and doy (day of the year), and $s_3(z)$ is a bivariate smooth function for coordinates (longitude, latitude). The previous two functions represent the time and seasonal effects respectively and the third function represents the spatial effects. The bivariate smooth function $s_3(z)$ = $s_3(Longitude, Latitude)$ is the tensor product of the marginal B-spline basis on the individual variables Longitude and Latitude.
+
+Furthermore, we established a model with $s_4(t_i,d_i)$, interaction effect of time and seasonal effects as Eq. \ref{eq:inter}
+
+```{=tex}
+\begin{equation}
+g(E(y_i)) =\beta_0+\beta_1 x_{1i}+\beta_2 x_{2i} +s_1(t_i) + s_2(d_i) + s_3(z_i)+s_4(t_i,d_i)+\varepsilon_i,\;i=1,\dots,n. \label{eq:inter}
+\end{equation}
+```
+Finally, we proposed a full model with $s_5(t_i,z_i)$ and $s_6(d_i,z_i)$, which represent interaction effects of time-space and season-space respectively as Eq. \ref{eq:full}.
+
+```{=tex}
+\begin{equation}
+  \begin{array}{l}
+g(E(y_i)) = \beta_0+\beta_1x_{1i}+\beta_2x_{2i} +s_1(t_i) + s_2(d_i) + s_3(z_i)\\+s_4(t_i,d_i)+s_5(t_i,z_i) +s_6(d_i,z_i)+ \varepsilon_i,\;i=1,\dots,n. \label{eq:full}
+  \end{array}
+\end{equation}
+```
+Because of the positive skewness of the flow data, we fitted the models using different family and link functions. The linear model is the base model to be compared and is defined as $Model_{1\cdot}$. The models expressed by Eq.(\ref{eq:lm}, \ref{eq:gammain}, \ref{eq:inter}, \ref{eq:full}) are labelled as $Model_{11}$, $Model_{12}$, $Model_{13}$ and $Model_{14}$ correspondingly. The log-norm and Gamma are two common choices of data distributions in hydrology [@bobee1993]. We defined the models with norm distribution and log link function and models with gamma distribution and log link function as $Model_{2\cdot}$ and $Model_{3\cdot}$ respectively. The logarithmic transformation is also a normal treatment of positively skewed data in statistics, so we defined these models as $Model_{4\cdot}$. All candidate models can be annotated as $Model_{ij}$, where $i=1,\dots,4$ represents which distribution the response is and $j=1,\dots,4$ represents which formula the models with different variables belong to. The response distributions of the candidate models are listed in Table \ref{tab:model}.
+
+```{r, echo = FALSE}
+data.frame(Model = c("$Model_{1{\\cdot}}$","$Model_{2{\\cdot}}$","$Model_{3{\\cdot}}$","$Model_{4{\\cdot}}$"),
+  response=c("Flow","Flow","Flow","log(Flow)"),
+  family = c("gaussion", "gaussion","gamma","gaussion"), 
+           link=c("identity","log","log","indentity")) %>%
+    kable(col.names = c("Model","Response","Family", "Link function"),
+        caption = '\\label{tab:model} Distribution family and link function of candidate models',escape = FALSE,
+        booktabs = TRUE, format = "latex", digits = 2) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+
+## Model fitting, selection and checks
+
+The computation of GAMs is painful due to the large dataset and plenty of parameters. We took the following means to decrease the model fitting cost.
+
+Instead of the gam function in the mgcv package [@wood2014], which is generally used to fit GAMs, bam function from the same package, provides an efficient tool to fit GAMs in the large data set. We apply the bam function to our data. For the univariate items, we choose cubic B-spline basis functions with the secondary penalty. For the bivariate items and interaction effect items, we employ the cubic regression splines, which are penalized by the conventional integrated square second derivative cubic spline penalty. The smoothness selection criteria is the fast restricted maximum likelihood (fREML) based on the restricted maximum likelihood REML criteria [@wood2014; @wood2017; @li2019] but much faster than which.
+
+For each response distribution, the above models $Model_{i\cdot}$ as Eq.(\ref{eq:lm}, \ref{eq:gammain}, \ref{eq:inter}, \ref{eq:full}) were fitted respectively. GAMs employ more parameters, which leads to a better fit, but is also complicated. The Akaike Information Criterion [AIC, @akaike1998], Bayesian information criterion [BIC, @buckland1997] are generally adopted for model selection. They strike a balance between the goodness of fit and freedom. The general likelihood ratio test (GLRT) and F-test are used to perform the significance tests for model comparison [@scheipl2008].
+
+We took 20% of the total 65 stations, i.e. 13 stations, for initial exploration and applied the appropriate model to the full dataset. Please see Appendix \ref{infor} for more information on the 13 gauging stations randomly selected. For each distribution $Model_{i\cdot}$, the following procedure was executed. Four models $Model_{ij},j=1,\dots,4$ were fitted separately and the candidate models were compared and the best model selected by AIC and BIC. The four models $Model_{ij},j=1,\dots,4$ are nested, so the selected best model is tested for significance by GLRT and F-test and the best model is determined. Finally, the four selected models were compared by deviance explained rate (DER) to determine the final best model.
+
+Once we have chosen the best model, we checked the residuals to dialogue whether we have built the model correctly. We identified whether there was spatial autocorrelation and temporal autocorrelation.
+
+## Predictive performance
+
+Model selection is based on information criteria, however, it focuses on how well the model fits the observed data, meaning that the model may perform poorly in prediction. We used the cross validation method to assess the predictive efficiency of the models. Given the large size of our model, we chose the k-folder cross-validation method to obtain prediction quality. The k folder method is flexible for big datasets and provides more accurate results than the hold out method, although the value of k is limited [@yadav2016]. When the number of instances is between 150,000 and 1,000,000, a value of 3-5 is recommended for k. Thus, we divide the entire dataset into 5 random subsets. This process is described as the following steps.
+
+1.  The 65 stations were randomly divided into 5 groups, each group containing 13 stations. The complete dataset was divided into 5 subsets accordingly. We denote the 65 gauging stations as $\pmb{z}_{rk},r=1,\dots,5,k=1,\dots,13$, where $r=1$ is the index of the 5 groups and $k$ is the index of the 13 gauging stations in each group.
+
+2.  A subset $\pmb{u}_r=(u(\pmb{z}_{r_1}),\dots,u(\pmb{z}_{r13}))$ is picked as the test set and other four as the training set $\pmb{u}_{-r}=(\pmb{u}_1,\dots,\pmb{u}_{r-1},\pmb{u}_{r+1},\dots,\pmb{u}_5)$, where $u(\pmb{z}_{rk})$ is the observation from $rk^{th}$ gauging station.
+
+3.  The model was fitted with the training set $\pmb{u}_{-r}$ and the process was predicted on the test set $\pmb{u}_{r}$ as $\pmb{P}_{\pmb{u}_{-r}}$.
+
+In order to achieve a robust result, we used three different criteria to evaluate our models. Root mean square prediction error (RMSPE) is a popular statistical tool for error accuracy criteria in hydrology [@kisi2011], which is defined as
+
+$$RMSPE=\sqrt{\frac{1}{n_r}\sum_{i=1}^{n_r}(\pmb{u}_{r}-P_{\pmb{u}_{-r}})^2},$$ where $n_r$ is the number of observations in the $r^{th}$ group.
+
+Mean absolute prediction error (MAPE) has also been used to compare different models in hydrology [@kisi2011], which is defined as
+
+$$MAPE=\frac{1}{n_r}\sum_{i=1}^{n_r}|\pmb{u}_{r}-P_{\pmb{u}_{-r}}|.$$
+
+Similarly, Median absolute prediction error [MdAPE @Maxim2013], is defined as
+
+$$MdAPE=\underset {i=1,\dots,n} {median}|\pmb{u}_{r}-P_{\pmb{u}_{-r}}|.$$
+
+After confirming the good ability in prediction, we fitted the select model into the full data and analysed how trends in flows varied over time and space.

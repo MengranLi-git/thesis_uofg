@@ -1,0 +1,27 @@
+---
+bibliography: references.bib
+---
+
+# Introduction {#intro}
+
+## Background
+
+The UK hosted the 26th United Nations Conference of the Parties on Climate Change (COP26) in Glasgow from 31 October to 13 November 2021, uniting the world in the fight against climate change. Human activities have led to increased CO2 emissions and global warming with a range of impacts, which has already caused widespread concern [@naveau2020]. Climate change poses challenges for the management of water resources, particularly in the catchment area [@griffiths2006]. Hydrological forecasting is highly profitable for decisions on hydropower, agriculture and, conservation of natural habitats [@harrigan2018].
+
+In the field of hydrology, physical models based on hydrological processes are still perceived to be the best models for streamflow prediction, but data-driven approaches have also flourished in recent years, with machine learning in particular being widely used [@iorgulescu2004]. Methods such as artificial neural networks (ANN), regression trees and, support vector machines are proved to offer strong predictive capabilities [@solomatine2008]. Nevertheless, these methods usually suffer from over-fitting problems and are difficult to explain. The generalized additive models (GAMs) can also accurately predict complex temporal-spatial distributions and compared to methods such as ANN, they offer the advantages of better interpretability, visualization and, the availability of formal statistical hypothesis tests [@shortridge2016]. It makes the application of GAMs for the interpretation and prediction of hydrological data an attractive option.
+
+## Aims of the proposed research
+
+A series of studies have shown that since the 1960s Scotland has had a wetter (especially in the west) and warmer climate on average [@black1995; @soulsby2002; @werritty2012]. This trend is expected to continue throughout the 21st century [@werritty2012]. However, the hydrology of Scotland is still insufficiently studied. Only [@franco-villoria2018] has conducted a complete research on Scottish flows, except for a complete study by @black1997. Most of the current literature has investigated only single or several gauging stations instead of flows across Scotland [@prosdocimi2014]. Therefore, the aim of this research is to explore a panoramic view of Scottish flows for long-term based on a large dataset and to propose a flexible framework of effective prediction based on the GAM.
+
+## Questions of interest
+
+In order to achieve the above objectives, three specific research questions need to be addressed.
+
+1. How the average daily flows in Scotland vary over time?
+
+2. What are the spatial patterns of the average daily flows in Scotland?
+
+3. Are there covariates that contribute substantially to the forecast of Scottish flows?
+
+Chapter 2 introduces the geographical features of Scotland and summarises the data set utilised in this paper. Chapter 3 constructs the methodology for modelling discharge data and the results are reported and discussed in Chapter 4. Chapter5 concludes and discusses the results and limitations of this study.

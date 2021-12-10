@@ -1,0 +1,187 @@
+---
+bibliography: references.bib
+---
+
+# Analysis of the data {#conclusion}
+
+## Model selection
+
+We fitted the candidate models via the bam function in the mgcv package [@wood2014] as appendix 1. All the smooth parameters were determined automatically by the fREML criterion. The 2nd derivative of penalty was imposed on the splines. For the choice of knots, We need a sufficiently large k as the basis dimension which can represent the smooth term with sufficient degrees of freedom. Nevertheless, there is no clear definition of how large k should be. We therefore chose k=6 for all items to keep the k as large as possible while ensuring that the computational cost is acceptable. We compared a total of 16 models as Table \ref{tab:result}.
+
+```{r, echo = FALSE}
+index <- character()
+for(i in 1:4){
+  for(j in 1:4){
+    index <- c(index, paste0("$Model_{",i,j,"}$"))
+  }
+}
+load("files/sub.Rdata")
+f%>% mutate(distribution = index) %>%
+  select(-"logLik")%>%
+  kable(col.names = c("Model","df","AIC","BIC","DER","F test","GLRT"),
+    caption = '\\label{tab:result} Freedom degree, AIC and BIC of each fitted model, and statistics of F test and GLRT of $model_{i4}$ with $model_{i1}$, $model_{i2}$, and $model_{i3}$ respectively.', 
+        booktabs = TRUE, format = "latex", digits = 2,escape = F) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position") %>%
+  pack_rows("$Model_{1\\cdot}$", 1, 4, escape = F) %>%
+  pack_rows("$Model_{2\\cdot}$", 5, 8, escape = F) %>%
+  pack_rows("$Model_{3\\cdot}$", 9, 12, escape = F) %>%
+  pack_rows("$Model_{4\\cdot}$", 13, 16, escape = F)
+```
+
+For each distribution, the $Model_{i4}$ is the best model with minimum AIC and BIC. We tested the significance of nested models and according to F-test and GLRT, the $Model_{i4}$ outperform the other three models, with all p values smaller than 0.0001. Of the four models $Model_{14}$, $Model_{24}$, $Model_{34}$ and,  $Model_{44}$, $Model_{44}$ has the highest DER value. Therefore, we choose $Model_{44}$ with log(Flow) as the response, Gaussian family, and identity link function as the best model.
+
+Table.\ref{tab:coef} and \ref{tab:term} list the significance tests for covariates in $Model_{44}$. The estimated coefficients for Catchment Area and Max Altitude are 0.0015($\pm0.0001$) and 0.0019($\pm0.0004$), respectively. They have a positive relationship with Flow. Both the parameters and smooth functions are significant at 0.05 with p values less than 0.0001.
+
+```{r, echo=FALSE}
+g <- summary(fit)
+data.frame(Estimate = g$p.coeff,
+           s.e. = g$se[1:3],
+           t.stat = g$p.t,
+           p.value = paste0("<0.0001")) %>% 
+  kable(caption = '\\label{tab:coef} Estimated coefficients of covariates in $Model_{44}$.',
+        booktabs = TRUE, format = "latex", digits = 4, escape = F) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+
+tidy(fit) %>% mutate(p.value = paste0("<0.0001")) %>% kable(caption = '\\label{tab:term} Analysis of variance for smooth terms in $Model_{44}$',
+        booktabs = TRUE, format = "latex", digits = 4, escape = F) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+
+## Model checks
+
+Fig. \ref{fig:check}(a) is the Q-Q dialogue plot. The residuals in the top right  and bottom left corners are higher than the theoretical values, which is probably caused by autocorrelation between the residuals.
+
+We checked the spatial correlation via empirical variograms. The envelops for the empirical variograms based on permutation are displayed as Fig. \ref{fig:check}(b). All points fall within the envelops. Therefore, the spatial patterns have been fully included in the model. Following the general approach to environmental modelling [@franco-villoria2018], we included an AR(1) progress in the model to remove potential temporal autocorrelation.
+
+```{r, echo = FALSE, results='hide',fig.keep='none'}
+vari <- variog(residUK)
+vari.mc <- variog.mc.env(residUK, obj.variog=vari)
+q <- function() {
+  par(
+    mar = c(3, 3, 3, 3),
+    mgp = c(2, 1, 0)
+  )
+  qq.gam(fit)
+}
+p1 <- ggdraw(q)
+p <- function() {
+  par(
+    mar = c(3, 3, 3, 3),
+    mgp = c(2, 1, 0)
+  )
+  plot(vari, envelope.obj=vari.mc)
+}
+p2 <- ggdraw(p) 
+
+```
+
+```{r, echo = FALSE, fig.height= 3, fig.cap="\\label{fig:check} Dialog plot for GAM. Figure (a) is the QQ norm plot of residuals and (b) is the spatial progress semivarigam plot."}
+plot_grid(p1,p2, ncol=2, labels=paste0("(",letters[1:2],")"), hjust = 0)
+```
+
+## Prediction effeciency
+
+One concern is whether the covariates effective for prediction. To avoid overfitting, we tested the ability of the covariates to predict flows using 5-fold cross-validation on the complete data set. The R code to carry out the procedure is as Appendix \ref{code}. The values of RMSPE, MAPE, and MdAPE are listed in Table. \ref{tab:MSE}.
+
+```{r, echo=FALSE}
+data.frame(Error=c("RMSPE","MAPE","MdAPE"),
+           model=c(2.989879,2.325188,1.860497),
+           without=c(1.612882,1.247002,0.992226)
+           )%>%  kable(col.names=c("Error criteria", "Model without covariates","Model with covariates"),
+        caption = '\\label{tab:MSE} RMSPE, MAPE and MdAPE scores when the model excludes covariates and contains covariates',
+        booktabs = TRUE, format = "latex", digits = 2) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+
+The mean RMSPE, MAPE and MdAPE values for model cross-validation are smaller when the model includes covariates Catchment Area and Maximum Altitude (1.61, 1.25 and 0.99, respectively) than when the model does not include covariates (2.99, 2.33 and 1.86, respectively). The five-folder cross validation indicates that it is more effective in predicting to include the covariates in the model under the three criteria.
+
+## Scottish hydrological features
+
+```{r, echo = FALSE}
+load("files/fit.Rdata")
+rm(data, p1, p2, p3 ,fit,g,residUK,vari,vari.mc,i,j,index)
+```
+
+We apply the model into the full dataset to explore how the average daily flows in Scotland vary over time and space. To balance the computational cost and accuracy, we choose the k values as follows. For the univariate terms, temporal and seasonal effects, the B-splines are proposed. The k of temporal effect function, say, $s_1(t),\;t=$ year(1989-2015), is selected as 6 and the k of seasonal effect, $s_2(d)$, $d=$ the day of the year (1-365), is choose as 6. The smooth functions of bivariate terms and interaction terms are cubic regression splines. We make k equals to 49 in the bivariate term $s_3(z)$, $z=$(Longitude, Latitude), which represents the spatial effect. The k values of interaction items $s_4(t,d)$, $s_5(t,z)$, and $s_6(d,z)$ are setted as upper limit on the degree of freedom in the smooth functions.
+
+The DER of the full model is 71%, which fits and explains the data with 640575 observations well. All covariates and items are significant at 0.05 with p values less than 0.0001. The estimated coefficients of Catchment Area and Max Altitude are 0.0001 and 0.0016 respectively. They have a positive relationship with Flow. Catchments with high Max Altitude and large areas usually contain mountains. The streams go down from the peaks, which leads to a large flow. It keeps constant with the exploratory analysis.
+
+Fig.\ref{fig:what} shows the main effects of temporal, seasonal, and spatial smooth items respectively. Fig.\ref{fig:what}(a) draws the variation of streamflow in a year. The flow in Scotland has maintained obvious seasonal characteristics. The minimum flow is reached on about the 200th day, that is, July 19. It is small in summer and more in winter. This is related to the heavy snowfall in winter. According to Fig.\ref{fig:what}(b), the temporal trend shows an overall rise, which may be affected by glacier melting. @werritty2012 also mentioned this in the impact of global warming on the climate in Scotland. 
+
+Fig.\ref{fig:what}(c) reveals the spatial features of the discharge. In high-altitude mountains, the flow is often small. The river originates from here and flows downward, producing a large flow in the surrounding area. In the Highland area of North-western Scotland, the color is darker where mountains are located, for example, on the Grampian Mountains. After water flows down from high latitudes, it reaches its maximum in the rift valley in the Central Lowland. Mountains in the Southern Uplands block the streamflow. The water originated here also flows to the low-lying central rift valley, which together with the water flow in the North leads to a large flow in the central region, while the Southern Uplands have the lowest flow.
+
+```{r, echo = FALSE, fig.height=3.5, fig.cap="\\label{fig:what} Estimated (a)temporal, (b)seasonal and (c)spatial smooth items."}
+b <- getViz(fit44)
+p1 <- plot(sm(b, 1))+ 
+      l_points() +l_fitLine(linetype = 1, size = 0.5, color = "red") +
+      theme_bw()+
+      theme(legend.position='hidden',
+             plot.title = element_text(hjust = -0.07,face="bold"))+
+      labs(title = "(a)")
+p2 <- plot(sm(b, 2))+ 
+      l_points() +l_fitLine(linetype = 1, size = 0.5, color = "red") +
+      theme_bw()+
+      theme(legend.position='hidden',
+             plot.title = element_text(hjust = -0.07,face="bold"))+
+      labs(title = "(b)")
+p3 <- plot(x = sm(b, 3))+l_fitRaster() +                
+      l_fitContour() +
+      theme_bw()+
+#  theme(legend.position='hidden')+
+#      scale_fill_gradientn(limits = c(-0.5,0.5), colors = hcl.colors(10))+
+      coord_fixed(ratio = 1.5) +
+      theme(plot.title = element_text(hjust = -0.07,face="bold"))+
+      labs(title = "(c)")
+gridPrint(p1, p2, p3, 
+          widths = c(1.5, 2),
+          layout_matrix = matrix(c(1,2,3,3), 2, 2, byrow = FALSE))
+rm(p1,p2,p3)
+```
+
+Fig.\@ref(fig:sha) exhibits the estimated interactions of temporal-seasonal, temporal-spatial, and seasonal-spatial smooth items. Fig.\@ref(fig:sha)(a) depicts that as the year moves, the minimum values of the interaction of doy with year move from summer to winter and the maximum values roll from spring to autumn. Fig.\@ref(fig:sha)(b) graphs the spatial distribution of flows in the different seasons, using the 1st, 92th, 182th, and 274th days of the year (i.e. 1 January, 1 April, 1 July, and 1 October) as facets. In winter (doy=1), flows are small in the Highlands with mountains and large in the Central Lowlands. Little variation in flows across the territory is more equitable in spring (doy=92). Summer (doy=182) is the opposite of winter, with high flows in the mountains and low flows in the lowlands. In autumn (doy=274), the tall mountains in the west obstruct the flow of air from the Atlantic Ocean and consequently the flow is high while low on the east coast. Fig.\@ref(fig:sha)(c) traces the spatial distribution of flows across years from 1990 to 2015 at 5-year intervals. In particular, the effect of the Atlantic Current was especially pronounced in 1990, with high flows on the west coast and low flows on the east coast. The influence of elevation on flows was dominant in 2015, with high flows in high terrain and low flows in lowland areas. The rest of the years were more evenly distributed spatially, but with a rising trend overall. 
+
+```{r, echo = FALSE, results='hide',fig.keep='all',fig.height=6, fig.cap="\\label{fig:sha} Estimated interactions of (a)temporal-seasonal, (b)temporal-spatial and (c)seasonal-spatial smooth items."}
+p1 <- plot(sm(b, 4))+
+  l_fitRaster() + 
+  l_fitContour()+
+  theme_bw()+
+  theme(legend.position='hidden',
+             plot.title = element_text(hjust = -0.1,face="bold"))+
+  labs(title = "(a)")+
+  scale_fill_gradientn(limits = c(-0.5,0.5), colors = hcl.colors(10))
+p2 <- plotSlice(x = sm(b, 5), 
+                fix = list("doy" = c(1, 92, 182,274)))+
+                l_fitRaster() + 
+  l_fitContour() +
+  theme_bw()+
+  theme(legend.position='hidden',
+             plot.title = element_text(hjust = -0.1,face="bold"))+
+  labs(title = "(b)")+
+  scale_fill_gradientn(limits = c(-0.5,0.5), colors = hcl.colors(10))+ coord_fixed(ratio = 1.5)
+
+p3 <- plotSlice(x = sm(b, 6), 
+                fix = list("Year" = seq(1990,2015,by=5)))+l_fitRaster() +           l_fitContour() +
+  theme_bw()+
+  theme(plot.title = element_text(hjust = -0.1,face="bold"))+
+  labs(title = "(c)")+
+  scale_fill_gradientn(limits = c(-0.5,0.5), colors = hcl.colors(10))+
+  coord_fixed(ratio = 1.5)
+
+gridPrint(p1, p2, p3, 
+          heights = c(1, 2.5),
+          layout_matrix = matrix(c(1, 2,3, 3),2,2))
+```
+
+We employed the GAM model combined with AR(1) model to forecast flows in Scotland from 2021 to 2030. Table. \ref{tab:pre} lists the predictions of average flow in Scotland over the four seasons at 3-year intervals for different years. The forecasts demonstrate a progressive increase in average flows for each season. Winter has the heaviest flows, while the lowest flows are pushed from summer to autumn.
+
+```{r, echo=FALSE, fig.cap = "\\label{fig:pre} Prediction of average daily flows in Scoland from 2021 to 2030."}
+load("F:/thesis_uofg/files/prediction.Rdata")
+p1 %>% kable(caption = '\\label{tab:pre} Preditions of average flow in Scotand from 2021 to 2030 by 3 years over the four seasons',
+        booktabs = TRUE, format = "latex", digits = 2) %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+
+## Conclusions
+
+The previous analysis provides answers to the three questions posed in Chapter 1. Flows in Scotland are progressively increasing and swing on a five-year periodicity. Within each year, winter flows are high and summer flows are low. Yet the difference is diminishing, with flows intensifying in summer and reducing in winter. In terms of spatial distribution, flows are relatively low in Highlands and high in the Central Lowland. Flows are also in excess of the East Coast on the West Coast. Further, we found the spatio-temporal characteristics of Scottish flows. The west coast was distinctly higher than the east coast in the early 1990s, with the rest of the years mainly following the low latitude, high flow characteristics, which were reinforced in the late decade at low latitudes. During the year, winter-summer flows are mainly determined by latitude, with autumn influenced by Atlantic currents. At last, the covariates catchment area and maximum latitude noticeably enhance the ability of models to predict flows in Scotland. Scottish average flows are forecast to continue to rise between 2021 and 2030.
+
